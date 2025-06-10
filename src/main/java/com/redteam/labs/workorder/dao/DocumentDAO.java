@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.redteam.labs.workorder.model.Document;
 import com.redteam.labs.workorder.util.DatabaseUtil;
+import com.redteam.labs.workorder.util.FileUploadScanner;
 import com.redteam.labs.workorder.util.FileValidationUtil;
 
 public class DocumentDAO {
@@ -42,6 +43,10 @@ public class DocumentDAO {
             insertDocument(doc);
             // Save the file to the filesystem
             java.nio.file.Files.copy(is, upload);
+            
+            if (FileUploadScanner.isMaliciousFile(upload.toFile())) {
+                throw new RuntimeException("Malicious file detected: " + filename);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to save document", e);

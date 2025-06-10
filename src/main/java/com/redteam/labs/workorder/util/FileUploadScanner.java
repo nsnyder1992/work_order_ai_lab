@@ -18,19 +18,13 @@ public class FileUploadScanner {
         Pattern.compile("(?i)<%=.*%>"),
         Pattern.compile("(?i)eval\\("),
         Pattern.compile("(?i)System\\.exit\\("),
-        Pattern.compile("(?i)ObjectInputStream|ObjectOutputStream") // RCE payloads
+        Pattern.compile("(?i)ObjectInputStream|ObjectOutputStream"), // RCE payloads
+        Pattern.compile("(?i)Base64\\.decode\\("), // Base64 decoding
     };
-
-    // Suspicious file extensions
-    private static final Set<String> dangerousExtensions = new HashSet<>(Arrays.asList("jsp", "php", "asp", "aspx", "exe", "bat", "sh", "cmd"));
 
     public static boolean isMaliciousFile(File file) {
         try {
             String extension = getExtension(file.getName());
-            if (dangerousExtensions.contains(extension)) {
-                System.out.println("[⚠] Suspicious file extension: " + extension);
-                return true;
-            }
 
             String content = readFileContent(file);
             for (Pattern pattern : fileContentPatterns) {
