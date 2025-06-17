@@ -45,39 +45,46 @@ This project was built as a security demo for:
 ## 📎 Disclaimer
 This project is for educational and internal demo purposes only. Do not expose it to the public internet.
 
-## Setup
-To get started you will need to download and install Ollama from here: https://ollama.com/
+## ⚙️ Setup Instructions
 
-Then open a command prompt and run the following command
+### 1. Install Ollama
+
+To us the AI functionality in the app you'll need [Ollama]([https://pages.github.com/](https://ollama.com/)). Download and install it for your platform, then pull the Mistral model:
 
 ```bash
 ollama pull mistral
 ```
 
-After that build this project:
+### 2. Build the Java Web App
+
+Clone the repo and build the project using Maven:
 
 ```bash
 mvn clean package
 ```
+Deploy the generated WAR file to your Tomcat server:
+```bash
+cp target/work-ai.war /path/to/tomcat/webapps/
+```
+Start Tomcat, then access the app in your browser. Make sure a user account is created via the signup page.
 
-Then drop the war file at `target/work-ai.war` into a tomcat webapps directory and start hacking :)
+##  3. Start the Agentic AI App (Beta)
 
-
-## Agentic AI APP (Beta)
-
-Run the following command in resources:
+Navigate to the resources/ directory and generate a local SSL certificate:
 
 ```bash
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
 ```
 
-Then to run the app:
+Start the Python agent server:
 
 ```bash
 python -m work-order-agent.py
 ```
 
-Make sure your tomcat is already up and running, and you have a user signed up. Then you can send the following to create a workorder after you change `{user_id}` for your user id and `{secret-token}` for your token:-H "Content-Type: application/json"
+### 4. Create a Work Order via the AI Agent
+
+You can now interact with the AI agent using `curl`. Replace `{user_id}` and `{secret-token}` with your actual values:
 
 ```bash
 curl -k -X POST https://localhost:5000/chat \
@@ -85,3 +92,8 @@ curl -k -X POST https://localhost:5000/chat \
   -H "Content-Type: application/json" \
   -d '{"user_id": "{user_id}", "prompt": "Create a new work order for a broken motor."}'
 ```
+
+## 🛠️ Notes
+- The AI agent requires HTTPS for token-based auth — hence the self-signed certificate.
+- Ensure the user account is created before sending prompts via the /chat endpoint.
+- The agent uses the Mistral model locally via Ollama to process and respond to prompts.
