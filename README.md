@@ -63,7 +63,7 @@ mvn clean package
 Then drop the war file at `target/work-ai.war` into a tomcat webapps directory and start hacking :)
 
 
-## Agentic AI APP (Beta don't use)
+## Agentic AI APP (Beta)
 
 Run the following command in resources:
 
