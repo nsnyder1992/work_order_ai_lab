@@ -68,7 +68,7 @@ cp target/work-ai.war /path/to/tomcat/webapps/
 ```
 Start Tomcat, then access the app in your browser. Make sure a user account is created via the signup page.
 
-### 3. Start the Agentic AI App (Beta)
+### 3. Optional: Start the Agentic AI App (Beta)
 
 Navigate to the resources/ directory and generate a local SSL certificate:
 
