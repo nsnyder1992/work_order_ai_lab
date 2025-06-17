@@ -38,6 +38,7 @@ This project was built as a security demo for:
 - Designed to support automated testing via Python scripting
 
 ## 🧠 Future Work
+- File Viewer (2 stage File Upload to bypass WAF -> LFI -> RCE)
 - Integrate LangChain agent for smarter AI actions
 - Expand the RCE and SSRF vectors
 - Add user activity logging and detection simulation
