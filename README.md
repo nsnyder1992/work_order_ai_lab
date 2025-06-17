@@ -1,6 +1,5 @@
 # Welcome to Work Order AI Lab
 
-## Demo
 This is a vulnerable web application designed for red team training and AI security research. It's an internal-facing app built to simulate common web security flaws and demonstrate how AI assistants can be manipulated in insecure environments.
 
 ## 🚧 Status
