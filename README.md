@@ -41,6 +41,7 @@ This project was built as a security demo for:
 - Integrate LangChain agent for smarter AI actions
 - Expand the RCE and SSRF vectors
 - Add user activity logging and detection simulation
+- Better protect against other Known vulnerabilities. (LLM Output XSS, LLM Input RCE, etc)
 
 ## 📎 Disclaimer
 This project is for educational and internal demo purposes only. Do not expose it to the public internet.
