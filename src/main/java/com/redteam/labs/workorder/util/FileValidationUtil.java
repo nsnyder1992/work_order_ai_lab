@@ -1,6 +1,7 @@
 package com.redteam.labs.workorder.util;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,12 +25,19 @@ public class FileValidationUtil {
      * @return True if the file extension is allowed, false otherwise.
      */
     public static boolean validateFileExtension(String fileName) {
-        int lastIndex = fileName.lastIndexOf('.');
-        if (lastIndex == -1) {
+        String fileExtension = getFileExtension(fileName);
+        if (fileExtension == null) {
             return false; // No extension found
         }
-        String fileExtension = fileName.substring(lastIndex + 1).toLowerCase();
         return ALLOWED_EXTENSIONS.contains(fileExtension);
+    }
+
+    public static String getFileExtension(String fileName) {
+        int lastIndex = fileName.lastIndexOf('.');
+        if (lastIndex == -1) {
+            return null;
+        }
+        return fileName.substring(lastIndex + 1).toLowerCase();
     }
 
     /**
@@ -41,11 +49,10 @@ public class FileValidationUtil {
      * @throws IOException If an I/O error occurs.
      */
     public static boolean validateFileContent(String fileName, InputStream inputStream) throws IOException {
-        int lastIndex = fileName.lastIndexOf('.');
-        if (lastIndex == -1) {
+        String fileExtension = getFileExtension(fileName);
+        if (fileExtension == null) {
             return false; // No extension found
         }
-        String fileExtension = fileName.substring(lastIndex + 1).toLowerCase();
         
         byte[] signature = null;
         switch(fileExtension) {

@@ -21,6 +21,7 @@ import com.redteam.labs.workorder.dao.DocumentDAO;
 import com.redteam.labs.workorder.dao.WorkOrderDAO;
 import com.redteam.labs.workorder.model.User;
 import com.redteam.labs.workorder.model.WorkOrder;
+import com.redteam.labs.workorder.util.FileValidationUtil;
 
 @WebServlet(urlPatterns = { "/jsp/main" }, initParams = { @WebInitParam(name = "uploadPath", value = "/uploads") })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 10 * 1024 * 1024)
@@ -89,6 +90,31 @@ public class MainServlet extends HttpServlet
             return;
         }
 
+        // check file extensions before creating work order
+        Collection<Part> parts = req.getParts();
+        for (Part part : parts)
+        {
+            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+            String fileExtension = FileValidationUtil.getFileExtension(fileName);
+            if (!FileValidationUtil.validateFileExtension(fileName))
+            {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid file type: " + fileExtension);
+                return;
+            }
+
+            if (part.getName().equals("complianceFiles") && !user.getRole().equals("admin"))
+            {
+                resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Only admins can upload compliance documentation");
+                return;
+            }
+
+            if (fileExtension.equals("zip") && !user.getRole().equals("admin"))
+            {
+                resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Only admins can upload ZIP files");
+                return;
+            }
+        }
+
         // Create and save the WorkOrder
         long wonum = System.currentTimeMillis();
         WorkOrder order = new WorkOrder();
@@ -111,8 +137,7 @@ public class MainServlet extends HttpServlet
         
         order = WorkOrderDAO.getWorkOrderByNumber(order.getNumber());
         
-        // Handle files:
-        Collection<Part> parts = req.getParts();
+
         for (Part part : parts)
         {
             if (part.getName().equals("uploadedFiles") && part.getSize() > 0)
