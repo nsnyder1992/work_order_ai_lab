@@ -131,7 +131,9 @@ public class WAFPayloadFilter implements javax.servlet.Filter
             "<jsp:", "base64_decode(", 
             "System.exit(", "ObjectInputStream", "ObjectOutputStream",     
             "<% Runtime.getRuntime().exec %>", "<% request.getParameter %>", "<jsp:include page=", "<jsp:forward page=",
-            "<%= out.println %>", "<% new java.io.File %>", "<% new java.net.Socket %>", "<% new java.util.Scanner %>",
+            "<%= out.println %>", 
+            "<% new java.io.File %>", 
+            "<% new java.net.Socket %>", "<% new java.util.Scanner %>",
             "<% javax.script.ScriptEngineManager %>", "<% org.apache.commons.io.IOUtils %>", "<% org.springframework.expression.SpelExpressionParser %>",
             
             

@@ -41,6 +41,8 @@ public class DocumentDAO {
         
         try {
             insertDocument(doc);
+            // Create parent directories if they don't exist
+            java.nio.file.Files.createDirectories(upload.getParent());
             // Save the file to the filesystem
             java.nio.file.Files.copy(is, upload);
             

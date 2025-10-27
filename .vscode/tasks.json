@@ -1,0 +1,88 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Maven Clean Package",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["clean", "package"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy to Tomcat",
+      "type": "shell",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "copy",
+        "target\\work-ai.war",
+        "C:\\work\\vtomcat\\webapps\\"
+      ],
+      "group": "build",
+      "dependsOn": "Maven Clean Package",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
+    },
+    {
+      "label": "Start Tomcat Debug",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-Command",
+        "Start-Sleep -Seconds 2; cd 'C:\\work\\vtomcat\\bin'; $env:JPDA_ADDRESS='8000'; $env:JPDA_TRANSPORT='dt_socket'; .\\catalina.bat jpda start"
+      ],
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Listening for transport dt_socket",
+          "endsPattern": "Server startup in"
+        }
+      }
+    },
+    {
+      "label": "Build and Deploy",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Deploy to Tomcat", "Start Tomcat Debug"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
+    }
+  ]
+}

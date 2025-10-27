@@ -41,11 +41,11 @@ public class DatabaseInit {
             + "\r\n-- Insert initial admin user\r\n"
             + "INSERT OR IGNORE INTO users (username, password, role)"
             + "VALUES ("
-            + "    'jsmith1988',"
+            + "    'jsmith',"
             + "    '%s',"
             + "    'admin'"
             + ");\r\n"
-            + "-- Insert some fake work orders for jsmith1988 (user_id = 1)\r\n"
+            + "-- Insert some fake work orders for jsmith (user_id = 1)\r\n"
             + "INSERT INTO work_orders (\r\n"
             + "    user_id, number, title, description, status,\r\n"
             + "    created_at, solution, quote, final_cost\r\n"
@@ -60,7 +60,7 @@ public class DatabaseInit {
             + " '2025-06-01T20:34:36.698', NULL, 500.00, NULL);";
 
     public static void initialize() throws IOException { 
-        String adminPasswordHash = BCrypt.hashpw("J3nnSk1p!", BCrypt.gensalt());
+        String adminPasswordHash = BCrypt.hashpw("J3nnsk1p!", BCrypt.gensalt());
         try (Connection conn = DatabaseUtil.getConnection();
              Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(String.format(SCHEMA_SQL, adminPasswordHash, adminPasswordHash));

@@ -90,9 +90,10 @@ public class MainServlet extends HttpServlet
         }
 
         // Create and save the WorkOrder
+        long wonum = System.currentTimeMillis();
         WorkOrder order = new WorkOrder();
         order.setUserId(user.getId());
-        order.setNumber("WO-" + System.currentTimeMillis()); // Generate a unique work order number
+        order.setNumber("WO-" + wonum); // Generate a unique work order number
         order.setTitle(title);
         order.setDescription(description);
         order.setStatus(status != null ? status : "in progress");
@@ -117,13 +118,13 @@ public class MainServlet extends HttpServlet
             if (part.getName().equals("uploadedFiles") && part.getSize() > 0)
             {
                 String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();                
-                DocumentDAO.saveDocument(order.getId(), uploadPath + "/" + user.getId(), fileName, "normal", part.getInputStream()); // Save document metadata if needed
+                DocumentDAO.saveDocument(order.getId(), uploadPath + "/" + wonum, fileName, "normal", part.getInputStream()); // Save document metadata if needed
             }
             
             if (part.getName().equals("complianceFiles") && part.getSize() > 0)
             {
                 String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-                DocumentDAO.saveDocument(order.getId(), uploadPath + "/" + user.getId(), fileName, "compliance", part.getInputStream()); // Save document metadata if needed
+                DocumentDAO.saveDocument(order.getId(), uploadPath + "/" + wonum, fileName, "compliance", part.getInputStream()); // Save document metadata if needed
             }
         }
 

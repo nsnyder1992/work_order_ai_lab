@@ -356,17 +356,65 @@ public class ChatServlet extends HttpServlet
 
     public static String stripAnsi(String input)
     {
-        // ANSI escape sequences (like cursor moves, colors, etc.)
-        String ansiAndVT100Regex = "(\\u001B\\[[;?0-9]*[ -/]*[@-~])" + // ANSI CSI sequences
-                "|(\\u001B\\][^\\u0007]*\\u0007)" + // OSC (Operating System Control)
-                "|(\\u001B\\[\\?25[hl])"; // Specific VT100 hide/show cursor
-        // Additional control characters and invisible stuff
-        String controlChars = "[\\p{Cntrl}&&[^\r\n\t]]"; // allows line breaks and tabs
-
-        return input.replaceAll(ansiAndVT100Regex, "")
-                .replaceAll(controlChars, "")
-                .replaceAll("\\e\\[[0-9;]*[a-zA-Z]", "") // extra
-                .replaceAll("[⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏]", "").trim();
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+        
+        // Step 1: Remove all ANSI escape sequences
+        String result = input.replaceAll("\\u001B\\[[0-9;]*[a-zA-Z]", "") // Standard ANSI sequences
+                             .replaceAll("\\u001B\\][^\\u0007]*\\u0007", "") // OSC sequences
+                             .replaceAll("\\u001B\\[\\?[0-9]+[hl]", "") // VT100 sequences
+                             .replaceAll("\\u001B\\[[0-9;]*[@-~]", "") // All CSI sequences
+                             .replaceAll("\\e\\[[0-9;]*[a-zA-Z]", ""); // Alternative escape notation
+        
+        // Step 2: Remove all Unicode Braille pattern characters (spinners)
+        // This covers the entire Braille Patterns Unicode block (U+2800-U+28FF)
+        result = result.replaceAll("[\\u2800-\\u28FF]", "");
+        
+        // Step 3: Remove Unicode replacement characters and other problematic chars
+        result = result.replaceAll("[\\uFFFD\\uFEFF]", "") // Replacement char and BOM
+                      .replaceAll("[\\u0000-\\u001F\\u007F-\\u009F]", "") // All control chars
+                      .replaceAll("\\r+", "") // Carriage returns
+                      .replaceAll("[\u200B-\u200D\uFEFF]", ""); // Zero-width chars and BOM
+        
+        // Step 4: Remove common malformed UTF-8 sequences and spinner-like characters
+        result = result.replaceAll("â\\s*[™¹¸¼´¦§‡Ï]", "") // Common UTF-8 encoding issues
+                      .replaceAll("[™¹¸¼´¦§‡Ï]", "") // Direct character removal
+                      .replaceAll("â\\s+", "") // Remove â followed by spaces
+                      .replaceAll("â", ""); // Remove any remaining â characters
+        
+        // Step 5: Remove any remaining non-printable or problematic characters at the start
+        result = result.replaceAll("^[^a-zA-Z0-9\\s]*", ""); // Remove non-alphanumeric chars from start
+        
+        // Step 6: Clean up whitespace
+        result = result.replaceAll("\\s+", " ") // Multiple whitespace to single space
+                      .trim();
+        
+        // Simple whitelist approach: only keep letters, numbers, punctuation, spaces, [], and {}
+        // This removes all ANSI codes, spinner characters, and encoding artifacts
+        result = result.replaceAll("[^a-zA-Z0-9\\s\\p{Punct}\\[\\]\\{\\}]", "");
+        
+        // Clean up excessive whitespace
+        result = result.replaceAll("\\s+", " ").trim();
+        
+        // If result is empty or very short, return it as-is
+        if (result.length() <= 10) {
+            return result;
+        }
+        
+        // Step 7: Extract actual content - look for lines with substantial text
+        if (result.length() > 0) {
+            String[] lines = result.split("\\n");
+            for (String line : lines) {
+                line = line.trim();
+                // Look for lines that start with actual words (not symbols) and have substantial content
+                if (line.length() > 10 && line.matches("^[a-zA-Z].*[a-zA-Z]{3,}.*")) {
+                    return line;
+                }
+            }
+        }
+        
+        return result;
     }
 
 }

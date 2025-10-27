@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Debug Tomcat Application",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 8000,
+      "preLaunchTask": "Build and Deploy",
+      "sourcePaths": ["${workspaceFolder}/src/main/java"]
+    },
+    {
+      "type": "java",
+      "name": "Debug Tomcat (No Build)",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 8000,
+      "sourcePaths": ["${workspaceFolder}/src/main/java"]
+    }
+  ]
+}

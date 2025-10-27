@@ -11,7 +11,7 @@ public class FileValidationUtil {
 
     // Allowed file extensions
     private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList(
-        "jpg", "jpeg", "gif", "png", "pdf", "csv", "txt", "xlsm", "xlsx"
+        "jpg", "jpeg", "gif", "png", "pdf", "csv", "txt", "xlsm", "xlsx", "zip"
     );
 
     // File signatures for validation
@@ -114,6 +114,8 @@ public class FileValidationUtil {
                 }
                 return signature[0] == (byte) 0x50 && signature[1] == (byte) 0x4B &&
                        signature[2] == (byte) 0x03 && signature[3] == (byte) 0x04;
+            case "zip":
+                return true;
             default:
                 throw new IllegalArgumentException("Unsupported file type: " + fileExtension);
         }

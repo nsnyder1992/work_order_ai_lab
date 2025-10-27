@@ -132,6 +132,12 @@ public class WorkOrderDAO {
                             rs.getInt("quote"),
                             rs.getInt("final_cost")
                     );
+                    
+                    // Fetch documents for this work order
+                    List<Document> documents = DocumentDAO.getDocumentsByWorkOrder(conn, o.getId());
+                    List<Document> complianceDocuments = DocumentDAO.getComplianceDocumentsByWorkOrder(conn, o.getId());  
+                    o.setDocuments(documents);
+                    o.setComplianceDocuments(complianceDocuments);
                     orders.add(o);
                 }
             }

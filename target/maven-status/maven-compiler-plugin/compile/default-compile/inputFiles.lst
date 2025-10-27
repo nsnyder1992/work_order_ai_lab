@@ -1,5 +1,6 @@
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\util\WebPayloadMonitor.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\filters\PromptInjectionFilter.java
+C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\servlet\FileViewerServlet.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\servlet\MainServlet.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\model\User.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\util\FileValidationUtil.java
@@ -12,8 +13,11 @@ C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\j
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\util\AccountLockoutManager.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\util\PromptInjectionMonitor.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\listener\AppStartupListener.java
+C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\servlet\ZipExtractorServlet.java
+C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\servlet\ZipFileDownloadServlet.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\dao\WorkOrderDAO.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\dao\UserDAO.java
+C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\servlet\FileDownloadServlet.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\util\DatabaseInit.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\util\DatabaseUtil.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\util\URLEncoderUtil.java
@@ -21,5 +25,4 @@ C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\j
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\util\AiTokenQuotaManager.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\model\Document.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\servlet\SignupServlet.java
-C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\servlet\WorkOrderServlet.java
 C:\Users\Nicholas.Snyder\OneDrive - Fortive\Desktop\htb\ai_prompt_lab\src\main\java\com\redteam\labs\workorder\dao\DocumentDAO.java
